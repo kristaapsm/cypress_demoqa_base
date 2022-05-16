@@ -1,16 +1,50 @@
-import CheckBoxPage from "../../pageObjects/CheckBoxPage";
-import TextBoxPage from "../../pageObjects/textBoxPage";
-import RadioButtonsPage from "../../pageObjects/RadioButtonsPage";
-import WebTablesPage from "../../pageObjects/WebTablesPage";
-import ButtonsPage from "../../pageObjects/ButtonsPage";
-import LinksPage from "../../pageObjects/LinksPage";
+import SelectablePage from "../../pageObjects/SelectablePage";
 
 context("Elements Page", () => {
   context("Text box scenarios", () => {
     beforeEach(() => {
-      TextBoxPage.visit();
+      SelectablePage.visit();
     });
 
+    it("Selectable page", () => {
+      SelectablePage.chooseLine.contains("Cras justo odio").click();
+      SelectablePage.chooseLine.contains("Morbi leo risus").click();
+      SelectablePage.chooseLine.contains("Cras justo odio").should("have.class", "active");
+      SelectablePage.chooseLine.contains("Morbi leo risus").should("have.class", "active");
+
+      SelectablePage.chooseLine.contains("Dapibus ac facilisis in").should("not.have.class","inactive");
+      SelectablePage.chooseLine.contains("Porta ac consectetur ac").should("not.have.class","inactive");
+    });
+
+    it("Selectable page grid",()=>{
+      SelectablePage.gridButton.click();
+
+      SelectablePage.row1.contains("Two").click();
+      SelectablePage.row2.contains("Four").click();
+      SelectablePage.row2.contains("Six").click();
+      SelectablePage.row3.contains("Eight").click();
+
+      SelectablePage.row1.contains("Two").should("have.class","active");
+      SelectablePage.row2.contains("Four").should("have.class","active");
+      SelectablePage.row2.contains("Six").should("have.class","active");
+      SelectablePage.row3.contains("Eight").should("have.class","active");
+
+
+      SelectablePage.row1.contains("One").should("not.have.class","inactive");
+      SelectablePage.row1.contains("Three").should("not.have.class","inactive");
+      SelectablePage.row2.contains("Five").should("not.have.class","inactive");
+      SelectablePage.row3.contains("Seven").should("not.have.class","inactive");
+      SelectablePage.row3.contains("Nine").should("not.have.class","inactive");
+
+
+
+
+
+    });
+
+
+
+/*
     it("Filling in Text Boxes", () => {
       // Add scenario stuff here
       // Input information
@@ -188,6 +222,7 @@ context("Elements Page", () => {
       // cy.intercept("GET", "created", { statusCode: 400 });
       LinksPage.createdLink.click();
       LinksPage.linkResponse.should("contain", "201");
+      */
     });
   });
-});
+
